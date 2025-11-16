@@ -1,6 +1,6 @@
 # CLI приложение для конвертации документов
 
-Терминальное CLI приложение для конвертации .txt файлов в XML формат с сохранением в PostgreSQL БД.
+Терминальное CLI приложение для конвертации .txt файлов в XML формат с сохранением в PostgreSQL БД или в XML файлы.
 
 ## Возможности
 
@@ -8,6 +8,7 @@
 - Транслитерация русских параметров в английские
 - Конвертация в XML формат
 - Сохранение в PostgreSQL БД
+- Сохранение XML в файлы (работает без БД)
 - Таблица для отслеживания уже встреченных параметров
 - Поддержка различных стратегий перевода и разделения параметров (задел для LLM)
 
@@ -59,6 +60,18 @@ python main.py /path/to/documents --verbose
 
 # Указание URL БД
 python main.py /path/to/documents --db-url postgresql://user:pass@localhost:5432/dbname
+
+# Сохранение XML в файлы (работает без БД)
+python main.py /path/to/documents --output-xml
+
+# Сохранение XML в указанную директорию
+python main.py /path/to/documents --output-xml --xml-dir /path/to/output
+
+# Только сохранение в XML файлы без БД
+python main.py /path/to/documents --output-xml --no-db
+
+# Сохранение и в БД, и в XML файлы
+python main.py /path/to/documents --output-xml --verbose
 ```
 
 ### Все флаги:
@@ -66,6 +79,9 @@ python main.py /path/to/documents --db-url postgresql://user:pass@localhost:5432
 - `--splitting-strategy`: Стратегия разделения длинных параметров (`none` или `llm`, по умолчанию: `none`)
 - `--db-url`: URL подключения к БД (по умолчанию: из переменных окружения)
 - `-v, --verbose`: Подробный вывод информации
+- `--output-xml`: Сохранять XML в файлы (работает без БД)
+- `--xml-dir`: Директория для сохранения XML файлов (по умолчанию: рядом с исходными .txt файлами)
+- `--no-db`: Не использовать БД (только сохранять в XML файлы)
 
 ## Переменные окружения для БД
 
